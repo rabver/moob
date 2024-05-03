@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+        .gowun-batang-regular {
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+        </style>
+</head>
+<body>
+    <h1>방탈출</h1>
+
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    <script src="script.js"></script>
+</body>
+<body2>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            max-width: 80%;
+        }
+        .button {
+            width: calc(25% - 5px);
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        #escape-button {
+            display: none;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+        <button class="button" onclick="checkSequence(1)">1</button>
+        <button class="button" onclick="checkSequence(2)">2</button>
+        <button class="button" onclick="checkSequence(3)">3</button>
+        <button class="button" onclick="checkSequence(4)">4</button>
+        <button class="button" onclick="checkSequence(5)">5</button>
+        <button class="button" onclick="checkSequence(6)">6</button>
+        <button class="button" onclick="checkSequence(7)">7</button>
+        <button class="button" onclick="checkSequence(8)">8</button>
+        <button class="button" onclick="checkSequence(9)">9</button>
+        <button class="button" onclick="checkSequence(10)">10</button>
+        <button class="button" onclick="checkSequence(11)">11</button>
+        <button class="button" onclick="checkSequence(12)">12</button>
+        <button id="reset-button" class="button" onclick="resetGame()">Reset</button>
+        <button id="escape-button" class="button" onclick="showEscape()">Escape!</button>
+    </div>
+    
+    <script>
+        let sequence = []; // 사용자의 클릭 순서를 저장하는 배열
+        const escapeSequence = [2, 5, 2, 1, 2, 4, 8, 10]; // 탈출 시퀀스
+    
+        function checkSequence(num) {
+            sequence.push(num); // 사용자가 클릭한 숫자를 배열에 추가
+    
+            let isCorrectSequence = true;
+            // 사용자가 클릭한 순서가 탈출 시퀀스와 동일한지 확인
+            for (let i = 0; i < sequence.length; i++) {
+                if (sequence[i] !== escapeSequence[i]) {
+                    isCorrectSequence = false;
+                    break; // 탈출 시퀀스와 다른 경우 반복 중단
+                }
+            }
+    
+            if (isCorrectSequence) {
+                // 탈출 시퀀스와 동일한 경우 탈출 버튼 보이기
+                document.getElementById("escape-button").style.display = "block";
+            } else {
+                // 탈출 시퀀스와 다른 경우 탈출 버튼 숨기기
+                document.getElementById("escape-button").style.display = "none";
+            }
+        }
+    
+        function showEscape() {
+            alert("You escaped!");
+        }
+    
+        function resetGame() {
+            sequence = []; // 사용자의 클릭 순서 배열 초기화
+            document.getElementById("escape-button").style.display = "none"; // 탈출 버튼 숨기기
+        }
+    </script>
+    </body>
+    </html>
+</body2>
