@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keypad Program</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .problem {
+            width: 300px;
+            height: 50px;
+            background-color: #c0c0c0;
+            text-align: center;
+            line-height: 50px;
+            margin-bottom: 20px;
+            border-radius: 25px;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+        }
+        .key {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+            color: #fff;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .enter {
+            grid-column: span 3;
+            background-color: #666;
+            border-radius: 15px;
+        }
+        .reset {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="problem" id="problem">문제: 3을 누르고 Enter를 누르세요</div>
+        <div class="keypad">
+            <div class="key" onclick="pressKey(1)">1</div>
+            <div class="key" onclick="pressKey(2)">2</div>
+            <div class="key" onclick="pressKey(3)">3</div>
+            <div class="key" onclick="pressKey(4)">4</div>
+            <div class="key" onclick="pressKey(5)">5</div>
+            <div class="key" onclick="pressKey(6)">6</div>
+            <div class="key" onclick="pressKey(7)">7</div>
+            <div class="key" onclick="pressKey(8)">8</div>
+            <div class="key" onclick="pressKey(9)">9</div>
+            <div class="key enter" onclick="checkSequence()">enter</div>
+        </div>
+        <button class="reset" onclick="resetInput()">리셋</button>
+    </div>
+
+    <script>
+        const correctSequence = [3, 4, 9, 1, 6, 2];
+        let inputSequence = [];
+        let currentStep = 0;
+
+        function pressKey(num) {
+            if (inputSequence.length === currentStep) {
+                inputSequence.push(num);
+                document.getElementById('problem').textContent = `Enter를 눌러 다음으로`;
+            }
+        }
+
+        function checkSequence() {
+            const problemDiv = document.getElementById('problem');
+            if (inputSequence[currentStep] === correctSequence[currentStep]) {
+                currentStep++;
+                if (currentStep < correctSequence.length) {
+                    problemDiv.textContent = `문제: ${correctSequence[currentStep]}를 눌러 다음으로`;
+                } else {
+                    problemDiv.textContent = '성공';
+                }
+            } else {
+                problemDiv.textContent = '실패';
+                resetInput();
+            }
+        }
+
+        function resetInput() {
+            inputSequence = [];
+            currentStep = 0;
+            document.getElementById('problem').textContent = '문제: 가나나다';
+        }
+    </script>
+</body>
+</html>
