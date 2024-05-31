@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keypad Program</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+    <body class=".nanum-myeongjo-bold">
+    <p>방탈출을 만들려 했지만 망한곳에 잘 오였습니다.</p>
+    </body>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .problem {
+            width: 300px;
+            height: 50px;
+            background-color: #c0c0c0;
+            text-align: center;
+            line-height: 50px;
+            margin-bottom: 20px;
+            border-radius: 25px;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+        }
+        .key {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+            color: #fff;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .enter {
+            grid-column: span 3;
+            background-color: #666;
+            border-radius: 15px;
+        }
+        .reset {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="problem" id="problem">문제: 3을 누르고 Enter를 누르세요</div>
+        <div class="keypad">
+            <div class="key" onclick="pressKey1()">1</div>
+            <div class="key" onclick="pressKey2()">2</div>
+            <div class="key" onclick="pressKey3()">3</div>
+            <div class="key" onclick="pressKey4()">4</div>
+            <div class="key" onclick="pressKey5()">5</div>
+            <div class="key" onclick="pressKey6()">6</div>
+            <div class="key" onclick="pressKey7()">7</div>
+            <div class="key" onclick="pressKey8()">8</div>
+            <div class="key" onclick="pressKey9()">9</div>
+            <div class="key enter" onclick="checkSequence()">enter</div>
+        </div>
+        <button class="reset" onclick="resetInput()">리셋</button>
+    </div>
+
+    <script>
+        const correctSequence = [3, 4, 9, 1, 6, 2];
+        let inputSequence = [];
+        let currentStep = 0;
+        let currentInput = null;
+
+        function pressKey1() { handleKeyPress(1); }
+        function pressKey2() { handleKeyPress(2); }
+        function pressKey3() { handleKeyPress(3); }
+        function pressKey4() { handleKeyPress(4); }
+        function pressKey5() { handleKeyPress(5); }
+        function pressKey6() { handleKeyPress(6); }
+        function pressKey7() { handleKeyPress(7); }
+        function pressKey8() { handleKeyPress(8); }
+        function pressKey9() { handleKeyPress(9); }
+
+        function handleKeyPress(num) {
+            if (currentInput === null) {
+                currentInput = num;
+                document.getElementById('problem').textContent = `Enter를 눌러 다음으로`;
+            }
+        }
+
+        function checkSequence() {
+            const problemDiv = document.getElementById('problem');
+            if (currentInput === correctSequence[currentStep]) {
+                currentStep++;
+                currentInput = null;
+                if (currentStep < correctSequence.length) {
+                    problemDiv.textContent = `문제: ${correctSequence[currentStep]}을 누르고 Enter를 누르세요`;
+                } else {
+                    problemDiv.textContent = '성공';
+                }
+            } else {
+                problemDiv.textContent = '실패';
+                resetInput();
+            }
+        }
+
+        function resetInput() {
+            inputSequence = [];
+            currentStep = 0;
+            currentInput = null;
+            document.getElementById('problem').textContent = '문제: 3을 누르고 Enter를 누르세요';
+        }
+    </script>
+</body>
+</html>
